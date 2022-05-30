@@ -19,10 +19,9 @@ export default function Logo() {
   return (
     <Box display="flex" alignItems="center">
       <Link to="/" className={classes.wrapper}>
-        {/* <img src={logo} alt="logo" width={40} />
         <Typography variant="h6" className={classes.text} noWrap>
-          E-DECOR
-        </Typography> */}
+          E-CLOTHES
+        </Typography>
       </Link>
       {window.location.pathname === "/cart" && (
         <Box ml={2} display="flex" alignItems="center">

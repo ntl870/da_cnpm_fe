@@ -283,7 +283,7 @@ export default function Top(props) {
               </Box>
               <Box display="flex" pb={1}>
                 <Box mr={5} mt={1}>
-                  Type
+                  Size
                 </Box>
                 <RadioGroup
                   aria-label="gender"
@@ -297,7 +297,7 @@ export default function Top(props) {
                       key={index}
                       value={product?.id.toString()}
                       control={<Radio />}
-                      label={`${product?.name} ${
+                      label={`${product?.size} ${
                         product?.quantity
                           ? `(${product?.quantity} piece available)`
                           : "(Out of stock)"
@@ -305,6 +305,26 @@ export default function Top(props) {
                     />
                   ))}
                 </RadioGroup>
+                {/* <RadioGroup
+                  aria-label="gender"
+                  name="type"
+                  // defaultValue={""}
+                  value={value}
+                  onChange={handleChange}
+                >
+                  {product?.productVersions?.map((product, index) => (
+                    <FormControlLabel
+                      key={index}
+                      value={product?.id.toString()}
+                      control={<Radio />}
+                      label={`${product?.size} ${
+                        product?.quantity
+                          ? `(${product?.quantity} piece available)`
+                          : "(Out of stock)"
+                      } `}
+                    />
+                  ))}
+                </RadioGroup> */}
               </Box>
               <Box display="flex" alignItems="center" pb={1}>
                 <Box>Quantity</Box>
@@ -332,12 +352,11 @@ export default function Top(props) {
                   </Button>
                 </Box>
               </Box>
-              {/* <Box display="flex" my={1}>
-                <Box style={{ position: "relative" }}>
+              <Box display="flex" my={1}>
+                {/* <Box style={{ position: "relative" }}>
                   <Button
                     color="primary"
                     variant="outlined"
-                    className={classes.actionBtn}
                     onClick={addToCart}
                     disabled={isDisabled || isLoading}
                   >
@@ -350,8 +369,8 @@ export default function Top(props) {
                       className={classes.buttonProgress}
                     />
                   )}
-                </Box>
-                <Box style={{ position: "relative" }}>
+                </Box> */}
+                {/* <Box style={{ position: "relative" }}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -361,8 +380,8 @@ export default function Top(props) {
                   >
                     Buy Now
                   </Button>
-                </Box>
-              </Box> */}
+                </Box> */}
+              </Box>
             </Box>
 
             <Box

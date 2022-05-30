@@ -31,14 +31,14 @@ export default function SubHeader() {
           <Link className={classes.link} to="/shop/settings">
             Setup Your Shop
           </Link>
-          <Divider
+          {/* <Divider
             orientation="vertical"
             flexItem
             className={classes.divider}
-          />
-          <Link className={classes.link} to="/blog">
+          /> */}
+          {/* <Link className={classes.link} to="/blog">
             Blog
-          </Link>
+          </Link> */}
         </Box>
         <Box className={classes.box}>
           <Box className={classes.help}>
@@ -47,7 +47,7 @@ export default function SubHeader() {
               Help
             </Link>
           </Box>
-          <FormControl variant="outlined" className={classes.languages}>
+          {/* <FormControl variant="outlined" className={classes.languages}>
             <Select
               value={"EN"}
               name={"size"}
@@ -66,7 +66,7 @@ export default function SubHeader() {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           {getToken() ? (
             <>

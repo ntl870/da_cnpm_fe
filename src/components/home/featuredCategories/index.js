@@ -4,11 +4,22 @@ import candle from "assets/images/categories/candle.png";
 import clock from "assets/images/categories/clock.png";
 import lamp from "assets/images/categories/lamp.png";
 import pinBoard from "assets/images/categories/pin-board.png";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "redux/categoryRedux";
 
 export default function FeaturedCategories() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  console.log(categories);
+
   return (
     <section>
       <Box mb={4}>
@@ -20,9 +31,9 @@ export default function FeaturedCategories() {
         <Grid item xs={12} md={6}>
           <Paper>
             <Box display="flex" justifyContent="center">
-              <img src={pinBoard} alt="" height={490} />
+              <img src={categories[0].image} alt="" height={490} />
             </Box>
-            <Typography className={classes.cateText}>Stationary</Typography>
+            <Typography className={classes.cateText}>{categories[0].name}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -31,9 +42,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={clock} alt="" height={200} />
+                    <img src={categories[1].image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>Clocks</Typography>
+                  <Typography className={classes.cateText}>{categories[1].name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -41,9 +52,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={lamp} alt="" height={200} />
+                    <img src={categories[2].image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>Lighting</Typography>
+                  <Typography className={classes.cateText}>{categories[2].name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -53,9 +64,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={candle} alt="" height={200} />
+                    <img src={categories[3].image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>Candles</Typography>
+                  <Typography className={classes.cateText}>{categories[3].name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -63,10 +74,10 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={calendar} alt="" height={200} />
+                    <img src={categories[4].image} alt="" height={200} />
                   </Box>
                   <Typography className={classes.cateText}>
-                    Calendars
+                    {categories[4].name}
                   </Typography>
                 </Box>
               </Paper>

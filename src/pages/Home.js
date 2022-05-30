@@ -14,9 +14,9 @@ const Home = () => {
   return (
     <Box>
       <Container style={{ paddingTop: 150 }}>
-        <TopPicks />
+        {/* <TopPicks /> */}
         <FeaturedCategories />
-        <IdeasBlog />
+        {/* <IdeasBlog /> */}
       </Container>
     </Box>
   );

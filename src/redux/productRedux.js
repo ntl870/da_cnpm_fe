@@ -154,7 +154,7 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = false;
       state.product = action.payload;
-      state.productVersions = action.payload.productVersions;
+      state.productVersions = action.payload?.productVersions;
     },
 
     [updateProduct.pending]: (state) => {
@@ -196,9 +196,9 @@ const productSlice = createSlice({
     },
     [getBestSellingProducts.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.bestSellingProducts = action.payload.products;
-      state.totalProducts = action.payload.totalProducts;
-      state.currentPage = action.payload.currentPage;
+      state.bestSellingProducts = action.payload?.products;
+      state.totalProducts = action.payload?.totalProducts;
+      state.currentPage = action.payload?.currentPage;
     },
     //
     [getPurchasedProducts.pending]: (state) => {
