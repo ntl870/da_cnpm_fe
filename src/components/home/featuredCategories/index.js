@@ -31,9 +31,9 @@ export default function FeaturedCategories() {
         <Grid item xs={12} md={6}>
           <Paper>
             <Box display="flex" justifyContent="center">
-              <img src={categories[0].image} alt="" height={490} />
+              <img src={categories[0]?.image} alt="" height={490} />
             </Box>
-            <Typography className={classes.cateText}>{categories[0].name}</Typography>
+            <Typography className={classes.cateText}>{categories[0]?.name}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -42,9 +42,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={categories[1].image} alt="" height={200} />
+                    <img src={categories[1]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[1].name}</Typography>
+                  <Typography className={classes.cateText}>{categories[1]?.name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -52,9 +52,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={categories[2].image} alt="" height={200} />
+                    <img src={categories[2]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[2].name}</Typography>
+                  <Typography className={classes.cateText}>{categories[2]?.name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -64,9 +64,9 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={categories[3].image} alt="" height={200} />
+                    <img src={categories[3]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[3].name}</Typography>
+                  <Typography className={classes.cateText}>{categories[3]?.name}</Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -74,10 +74,10 @@ export default function FeaturedCategories() {
               <Paper>
                 <Box mb={2}>
                   <Box display="flex" justifyContent="center">
-                    <img src={categories[4].image} alt="" height={200} />
+                    <img src={categories[4]?.image} alt="" height={200} />
                   </Box>
                   <Typography className={classes.cateText}>
-                    {categories[4].name}
+                    {categories[4]?.name}
                   </Typography>
                 </Box>
               </Paper>
