@@ -31,7 +31,6 @@ export default function Header() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(userSelector);
   const { recentProducts, quantity, isUpdated } = useSelector(cartSelector);
-
   useEffect(() => {
     currentUser && dispatch(getRecentCartItems());
   }, [currentUser, dispatch, isUpdated]);

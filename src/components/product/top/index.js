@@ -353,7 +353,7 @@ export default function Top(props) {
                 </Box>
               </Box>
               <Box display="flex" my={1}>
-                {/* <Box style={{ position: "relative" }}>
+                <Box style={{ position: "relative" }}>
                   <Button
                     color="primary"
                     variant="outlined"
@@ -369,7 +369,7 @@ export default function Top(props) {
                       className={classes.buttonProgress}
                     />
                   )}
-                </Box> */}
+                </Box>
                 {/* <Box style={{ position: "relative" }}>
                   <Button
                     color="primary"
