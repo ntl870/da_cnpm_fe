@@ -74,14 +74,9 @@ export default function ProductVersionForm(props) {
   const [name, setName] = useState(productVersion?.name);
   const [price, setPrice] = useState(productVersion?.price);
   const [quantity, setQuantity] = useState(productVersion?.quantity);
-  // const [image, setImage] = useState("");
+  const [size, setSize] = useState(productVersion.size);
+  const [color, setColor] = useState(productVersion.color);
   const dispatch = useDispatch();
-  const handleChangeName = (event) => {
-    setName(event.target.value);
-    dispatch(
-      updateProductVersion({ ...productVersion, name: event.target.value })
-    );
-  };
   const handleChangePrice = (event) => {
     setPrice(event.target.value);
     dispatch(
@@ -94,6 +89,18 @@ export default function ProductVersionForm(props) {
       updateProductVersion({ ...productVersion, quantity: event.target.value })
     );
   };
+  const handleSize = (event) => {
+    setSize(event.target.value);
+    dispatch(
+      updateProductVersion({ ...productVersion, size: event.target.value })
+    );
+  }
+  const handleColor = (event) => {
+    setColor(event.target.value);
+    dispatch(
+      updateProductVersion({ ...productVersion, color: event.target.value })
+    );
+  }
 
   const getUploadedUrl = async (file) => {
     //  setUploadCover(true);
@@ -127,8 +134,7 @@ export default function ProductVersionForm(props) {
               className={classes.avatarWrapper}
               style={{ opacity: `${showedBtn ? 0.5 : 1}` }}
             >
-              <img src={Icons.IMAGE_ICON} alt=""/>
-              
+              <img src={Icons.IMAGE_ICON} alt="" />
             </Avatar>
             <Box
               className={classes.btn}
@@ -206,7 +212,41 @@ export default function ProductVersionForm(props) {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={6}>
+              <FormControl
+                variant="outlined"
+                margin="dense"
+                fullWidth
+                disabled={isView}
+              >
+                <InputLabel htmlFor="component-outlined">Size</InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  value={size}
+                  onChange={handleSize}
+                  label="Size"
+                  placeholder="Size"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl
+                variant="outlined"
+                margin="dense"
+                fullWidth
+                disabled={isView}
+              >
+                <InputLabel htmlFor="component-outlined">Color</InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  value={color}
+                  onChange={handleColor}
+                  label="Color"
+                  placeholder="Color"
+                />
+              </FormControl>
+            </Grid>
+            {/* <Grid item xs={12} md={12}>
               <FormControl
                 variant="outlined"
                 margin="dense"
@@ -226,7 +266,7 @@ export default function ProductVersionForm(props) {
                   rows={3}
                 />
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid
               item
               xs={12}

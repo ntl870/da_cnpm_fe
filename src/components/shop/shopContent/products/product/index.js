@@ -13,6 +13,7 @@ import { useStyles } from "./styles";
 
 export default function Product(props) {
   const { product, noHover = false } = props;
+  // console.log(product)
   const classes = useStyles();
   const [state, setState] = useState({
     raised: false,

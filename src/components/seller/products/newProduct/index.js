@@ -182,16 +182,18 @@ export default function NewProductForm() {
       name,
       categoryId,
       description,
-      material: "",
-      origin: "",
-      size: "",
+      // material: "",
+      // origin: "",
+      // size: "",
       weight: 1,
-      images,
+      images: images || [],
       versions: storeProduct?.productVersions?.map((item) => ({
-        name: item.name,
+        // name: item.name,
         image: item.image,
-        price: item.price,
-        quantity: item.quantity,
+        price: Number(item.price),
+        quantity: Number(item.quantity),
+        size: item.size,
+        color: item.color
       })),
     };
     dispatch(createProduct(data)).then((data) => {

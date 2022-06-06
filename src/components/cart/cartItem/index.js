@@ -85,7 +85,7 @@ export default function CartItem(props) {
         }}
         width="15%"
       >
-        {row?.version.name}
+        {row?.version.color}
       </TableCell>
       <TableCell width="10%">${row?.version.price}</TableCell>
       <TableCell width="20%">

@@ -112,7 +112,7 @@ const orderSlice = createSlice({
     promotionId: null,
     shippingUnitId: null,
     amount: 0,
-    isPurchased: false,
+    isPurchased: true,
     orderItems: [],
     isLoading: false,
     isUpdating: false,

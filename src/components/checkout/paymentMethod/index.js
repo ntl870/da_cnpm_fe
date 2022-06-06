@@ -44,6 +44,7 @@ export default function PaymentMethod() {
     dispatch(storeIsPurchased(!isPurchased));
     setAnchorEl(null);
   };
+
   return (
     <Paper className={classes.root}>
       <Box p={2} mb={4}>
@@ -64,18 +65,8 @@ export default function PaymentMethod() {
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" mr={9}>
-            <Typography className={classes.text}>
-              {isPurchased ? "Pay with Paypal" : "Cash on Delivery"}
-            </Typography>
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              color="primary"
-              style={{ marginLeft: 16 }}
-              onClick={handleClick}
-            >
-              Change
-            </Button>
+            <Typography className={classes.text}>Pay with Paypal</Typography>
+
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}
@@ -180,7 +171,7 @@ export default function PaymentMethod() {
             agreeing to Our General Transaction Terms
           </Typography>
 
-          {isPurchased ? (
+          {true ? (
             <Box mr={10}>
               <PayPalButton
                 amount={amount - voucherPrice + shipping.fee}

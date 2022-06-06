@@ -59,6 +59,7 @@ export const getPrice = (min, max) => {
 };
 
 export const getCartItemsShop = (products) => {
+  console.log('p',products)
   let array = [];
   for (let i = 0; i < products?.length; i++) {
     for (let j = 0; j < products[i]?.productVersions?.length; j++) {

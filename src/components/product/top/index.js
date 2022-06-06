@@ -43,6 +43,7 @@ export default function Top(props) {
   const { isLoading } = useSelector(cartSelector);
   const [showedImage, setShowedImage] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [color, setColor] = useState("");
   useEffect(() => {
     setShowedImage(
       product?.images?.concat(
@@ -88,7 +89,16 @@ export default function Top(props) {
     setIsDisabled(!item.quantity);
   };
 
+  const handleSizeChange = (e) => {
+    setColor(e.target.value);
+  };
+
   const addToCart = (e) => {
+    // const productVersionId = product?.productVersions?.find(item => item.color = color && item.size === value).id;
+    const productVersionId = product?.productVersions?.find(
+      (item) => item.color === color && item.size === value
+    )?.id;
+    console.log(productVersionId);
     if (!getToken()) history.push("/login");
     else if (value)
       dispatch(addCartItem({ quantity, productVersionId: value })).then(
@@ -285,26 +295,57 @@ export default function Top(props) {
                 <Box mr={5} mt={1}>
                   Size
                 </Box>
-                <RadioGroup
-                  aria-label="gender"
-                  name="type"
-                  // defaultValue={""}
-                  value={value}
-                  onChange={handleChange}
-                >
-                  {product?.productVersions?.map((product, index) => (
-                    <FormControlLabel
-                      key={index}
-                      value={product?.id.toString()}
-                      control={<Radio />}
-                      label={`${product?.size} ${
-                        product?.quantity
-                          ? `(${product?.quantity} piece available)`
-                          : "(Out of stock)"
-                      } `}
-                    />
-                  ))}
-                </RadioGroup>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <RadioGroup
+                      aria-label="gender"
+                      name="type"
+                      // defaultValue={""}
+                      value={value}
+                      onChange={handleChange}
+                      style={{ display: "flex", flexDirection: "row" }}
+                    >
+                      {product?.productVersions?.map((product, index) => (
+                        <FormControlLabel
+                          key={index}
+                          value={product?.id.toString()}
+                          control={<Radio />}
+                          label={`${product?.size} ${
+                            product?.quantity
+                              ? `(${product?.quantity} piece available)`
+                              : "(Out of stock)"
+                          } `}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </Grid>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="size"
+                    // defaultValue={""}
+                    value={color}
+                    onChange={handleSizeChange}
+                  >
+                    {product?.productVersions
+                      ?.map((product, index) => (
+                        <FormControlLabel
+                          key={index}
+                          value={product?.color}
+                          control={<Radio />}
+                          label={`${product?.color} ${
+                            product?.quantity
+                              ? `(${product?.quantity} piece available)`
+                              : "(Out of stock)"
+                          } `}
+                        />
+                      ))
+                      .filter(
+                        (v, i, a) =>
+                          a.findIndex((t) => t.color === v.color) === i
+                      )}
+                  </RadioGroup>
+                </Grid>
+
                 {/* <RadioGroup
                   aria-label="gender"
                   name="type"

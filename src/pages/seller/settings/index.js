@@ -19,9 +19,6 @@ export default function Settings() {
           <SettingsIcon className={classes.icon} />
           <Typography className={classes.title}>Profile</Typography>
         </Box>
-        <Button color="primary" variant="outlined">
-         Advanced settings 
-        </Button>
       </Box>
       <Box>
         <ShopInfo />

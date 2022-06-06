@@ -16,14 +16,14 @@ export default function Sidebar() {
     <Paper>
       <Box pt={4} pb={2}>
         <Box display="flex" flexDirection="column">
-          {/* <NavLink
+          <NavLink
             className={classes.navLink}
             to="/shop/dashboard"
             activeClassName={classes.active}
           >
             <DashboardOutlinedIcon className={classes.icon} />
             Dashboard
-          </NavLink> */}
+          </NavLink>
           <NavLink
             className={classes.navLink}
             to="/shop/products"

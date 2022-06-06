@@ -114,45 +114,48 @@ export default function ShopOrdered(props) {
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
             <TableBody>
-              {orderItems?.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    width="30%"
-                    size="small"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      history.push(`/product/${row?.id}`);
-                    }}
-                  >
-                    <Box ml={2} display="flex" alignItems="center">
-                      <img
-                        style={{ marginRight: 16 }}
-                        width={50}
-                        height={50}
-                        src={row?.image}
-                        alt=""
-                      />
-                      <Box className={classes.line}>{row?.name}</Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell
-                    style={{ cursor: "pointer" }}
-                    width="20%"
-                    onClick={() => {
-                      history.push(`/product/${row?.id}`);
-                    }}
-                  >
-                    {row?.productVersionName}
-                  </TableCell>
-                  <TableCell width="15%">${row?.price}</TableCell>
-                  <TableCell width="15%">{row?.quantity}</TableCell>
-                  <TableCell width="10%" className={classes.price}>
-                    ${row?.quantity * row?.price}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {orderItems?.map((row, index) => {
+                console.log('row',row)
+                return (
+                  <TableRow key={index}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      width="30%"
+                      size="small"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        history.push(`/product/${row?.id}`);
+                      }}
+                    >
+                      <Box ml={2} display="flex" alignItems="center">
+                        <img
+                          style={{ marginRight: 16 }}
+                          width={50}
+                          height={50}
+                          src={row?.image}
+                          alt=""
+                        />
+                        <Box className={classes.line}>{row?.name}</Box>
+                      </Box>
+                    </TableCell>
+                    <TableCell
+                      style={{ cursor: "pointer" }}
+                      width="20%"
+                      onClick={() => {
+                        history.push(`/product/${row?.id}`);
+                      }}
+                    >
+                      {row?.productVersionName}
+                    </TableCell>
+                    <TableCell width="15%">${row?.price}</TableCell>
+                    <TableCell width="15%">{row?.quantity}</TableCell>
+                    <TableCell width="10%" className={classes.price}>
+                      ${row?.quantity * row?.price}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

@@ -7,6 +7,7 @@ import Product from "./product";
 export default function Products(props) {
   const { isLoading } = useSelector(productSelector);
   const { products } = props;
+  console.log(products)
   return (
     <Grid container spacing={3}>
       {isLoading
