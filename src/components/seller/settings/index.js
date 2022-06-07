@@ -91,6 +91,10 @@ export default function ShopInfo() {
     districtId && dispatch(getWards(districtId));
   }, [dispatch, districtId]);
 
+  useEffect(() => {
+    dispatch(getMyShop());
+  }, [dispatch]);
+
   const [avaUrl, setAvaUrl] = useState(
     storeShop?.currentShop ? storeShop?.currentShop?.avatar : defaultAva
   );
