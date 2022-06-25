@@ -26,6 +26,8 @@ import { logOut } from "redux/userRedux";
 import { size } from "underscore";
 import SubHeader from "../SubHeader";
 import { useStyles } from "./styles";
+import { io } from "socket.io-client";
+import { getToken } from "utils/helpers";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -67,6 +69,20 @@ export default function Header() {
     dispatch(logOut());
   };
 
+  const socket = io(process.env.REACT_APP_API_URL, {
+    auth: { token: getToken() },
+    transports: ["websocket"],
+  });
+  console.log(socket);
+
+  useEffect(() => {
+    socket.on("connected", (data) => {
+      console.log(data);
+    });
+    socket.on("notification", (data) => console.log(data));
+  }, [socket]);
+
+  // console.log(socket);
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu

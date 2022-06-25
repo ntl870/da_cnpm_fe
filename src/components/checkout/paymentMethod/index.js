@@ -175,7 +175,6 @@ export default function PaymentMethod() {
             <Box mr={10}>
               <PayPalButton
                 amount={amount - voucherPrice + shipping.fee}
-                shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
                   dispatch(resetOrder());
                   return dispatch(
@@ -194,7 +193,6 @@ export default function PaymentMethod() {
                       })),
                     })
                   ).then((res) => {
-                    console.log(res);
                     if (!res?.error) {
                       toast.success("SUCCESS");
                       history.push(`/orders/${res.payload.id}`);
@@ -205,7 +203,7 @@ export default function PaymentMethod() {
                   clientId: process.env.REACT_APP_PRODUCTION_CLIENT_ID,
                 }}
                 onError={(err) => {
-                  console.log("onError: err=", err);
+                  console.log(err);
                 }}
               />
             </Box>
