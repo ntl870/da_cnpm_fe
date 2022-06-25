@@ -27,6 +27,7 @@ export default function Main(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { title, posts, loadMore } = props;
+  //eslint-disable-next-line
   const [type, setType] = useState("Newest");
   const { decorTheme } = useSelector(blogSelector);
 

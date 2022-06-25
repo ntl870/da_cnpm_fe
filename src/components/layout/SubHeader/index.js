@@ -1,14 +1,5 @@
-import {
-  Box,
-  Container,
-  Divider,
-  FormControl,
-  InputBase,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import { Box, Container, Divider } from "@material-ui/core";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-import LanguageIcon from "@material-ui/icons/Language";
 import React from "react";
 import { Link } from "react-router-dom";
 import { getToken } from "utils/helpers";

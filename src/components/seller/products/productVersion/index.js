@@ -24,6 +24,7 @@ export default function ProductVersionForm(props) {
   const { productVersion, isView } = props;
   const classes = useStyles();
   // images
+  // eslint-disable-next-line
   const [files, setFiles] = useState([]);
 
   useEffect(
@@ -71,7 +72,6 @@ export default function ProductVersionForm(props) {
   };
 
   const [showedBtn, setShowedBtn] = useState(false);
-  const [name, setName] = useState(productVersion?.name);
   const [price, setPrice] = useState(productVersion?.price);
   const [quantity, setQuantity] = useState(productVersion?.quantity);
   const [size, setSize] = useState(productVersion.size);
@@ -94,13 +94,13 @@ export default function ProductVersionForm(props) {
     dispatch(
       updateProductVersion({ ...productVersion, size: event.target.value })
     );
-  }
+  };
   const handleColor = (event) => {
     setColor(event.target.value);
     dispatch(
       updateProductVersion({ ...productVersion, color: event.target.value })
     );
-  }
+  };
 
   const getUploadedUrl = async (file) => {
     //  setUploadCover(true);

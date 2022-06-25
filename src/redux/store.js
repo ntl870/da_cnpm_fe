@@ -13,6 +13,7 @@ import shipmentReducer from "./shipmentRedux";
 import filterReducer from "./filterRedux";
 import statisticReducer from "./statisticRedux";
 import blogReducer from "./blogRedux";
+import notificationReducer from "./notificationRedux";
 
 import {
   persistStore,
@@ -31,7 +32,7 @@ const persistConfig = {
   version: 1,
   storage,
   // whitelist: ['user']
-  blacklist: ['order']
+  blacklist: ["order"],
 };
 
 const rootReducer = combineReducers({
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   statistic: statisticReducer,
   blog: blogReducer,
+  notification: notificationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

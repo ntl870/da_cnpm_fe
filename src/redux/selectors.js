@@ -12,3 +12,4 @@ export const shipmentSelector = (state) => state.shipment;
 export const filterSelector = (state) => state.filter;
 export const statisticSelector = (state) => state.statistic;
 export const blogSelector = (state) => state.blog;
+export const notificationSelector = (state) => state.notification;

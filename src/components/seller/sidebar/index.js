@@ -7,7 +7,6 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "./styles";
-import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 
 export default function Sidebar() {
   const classes = useStyles();

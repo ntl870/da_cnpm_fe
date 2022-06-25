@@ -113,6 +113,7 @@ export default function Top(props) {
       console.error("Please select product variation first");
     }
   };
+  // eslint-disable-next-line
   const handleBuyNow = (e) => {
     if (!getToken()) history.push("/login");
     else if (value) {

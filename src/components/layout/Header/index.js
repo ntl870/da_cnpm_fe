@@ -4,6 +4,7 @@ import {
   Badge,
   Box,
   Button,
+  CircularProgress,
   IconButton,
   Menu,
   MenuItem,
@@ -28,6 +29,124 @@ import SubHeader from "../SubHeader";
 import { useStyles } from "./styles";
 import { io } from "socket.io-client";
 import { getToken } from "utils/helpers";
+import CancelIcon from "@material-ui/icons/Cancel";
+import { notificationSelector } from "../../../redux/selectors";
+import { getNotifications, deleteNotification } from "redux/notificationRedux";
+
+const RenderNotifications = ({
+  deletedNoti,
+  notificationAnchorEl,
+  handleNotificationClose,
+}) => {
+  const { notifications, isLoading } = useSelector(notificationSelector);
+  const dispatch = useDispatch();
+
+  const deleteNoti = async (id) => {
+    dispatch(deleteNotification({ id, deletedNoti }));
+  };
+
+  useEffect(() => {
+    dispatch(getNotifications());
+  }, [dispatch]);
+
+  return (
+    <Menu
+      anchorEl={notificationAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={!!notificationAnchorEl}
+      onClose={handleNotificationClose}
+      style={{
+        marginTop: 50,
+        marginRight: 40,
+        cursor: "pointer",
+        minWidth: 300,
+      }}
+      MenuListProps={{ onMouseLeave: handleNotificationClose }}
+      disableScrollLock={true}
+    >
+      {(() => {
+        if (isLoading)
+          return (
+            <div
+              style={{
+                minWidth: 300,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress size={24} />
+            </div>
+          );
+
+        return notifications?.map((item) => (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+            key={item?.id}
+          >
+            <MenuItem style={{ minWidth: 300, paddingLeft: "0.5rem" }}>
+              {item?.isRead && (
+                <div
+                  style={{
+                    width: "0.5rem",
+                    height: "0.5rem",
+                    borderRadius: "50%",
+                    backgroundColor: "blue",
+                    marginRight: "0.5rem",
+                  }}
+                ></div>
+              )}
+
+              <Box
+                display={"flex"}
+                justifyContent="space-between"
+                alignItems="center"
+                style={{ minWidth: 300 }}
+              >
+                <Box display={"flex"} alignItems="center">
+                  <img
+                    width={50}
+                    height={50}
+                    src={item?.order.orderItems[0].productVersion.image}
+                    alt="product"
+                  />
+                  <Box>
+                    <Typography
+                      style={{
+                        marginLeft: 8,
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        maxWidth: 270,
+                        paddingRight: 16,
+                      }}
+                    >
+                      {item?.message}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </MenuItem>
+            <Box
+              style={{ marginRight: "0.5rem" }}
+              onClick={() => deleteNoti(item?.id)}
+            >
+              <IconButton>
+                <CancelIcon htmlColor="red" />
+              </IconButton>
+            </Box>
+          </div>
+        ));
+      })()}
+    </Menu>
+  );
+};
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -42,7 +161,8 @@ export default function Header() {
   const classes = useStyles({ isVisible });
   const [anchorEl, setAnchorEl] = useState(null);
   const [cardAnchorEl, setCardAnchorEl] = useState(null);
-
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  const [deletedNoti, setDeletedNoti] = useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isCardMenuOpen = Boolean(cardAnchorEl);
 
@@ -59,6 +179,15 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const handleNotificationOpen = (event) => {
+    setNotificationAnchorEl(event.currentTarget);
+    setAnchorEl(null);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null);
+  };
+
   const handleCardMenuOpen = (event) => {
     setCardAnchorEl(event.currentTarget);
     setAnchorEl(null);
@@ -73,13 +202,13 @@ export default function Header() {
     auth: { token: getToken() },
     transports: ["websocket"],
   });
-  console.log(socket);
 
   useEffect(() => {
-    socket.on("connected", (data) => {
-      console.log(data);
+    socket.on("notification", (data) => {
+      if (data?.status === "delete") {
+        setDeletedNoti(data?.payload?.notificationId);
+      }
     });
-    socket.on("notification", (data) => console.log(data));
   }, [socket]);
 
   // console.log(socket);
@@ -280,7 +409,11 @@ export default function Header() {
 
           <div className={classes.sectionDesktop}>
             <IconButton color="inherit">
-              <Badge badgeContent={0} color="secondary">
+              <Badge
+                badgeContent={0}
+                color="secondary"
+                onMouseOver={handleNotificationOpen}
+              >
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -297,22 +430,24 @@ export default function Header() {
               </Badge>
             </IconButton>
             {currentUser ? (
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-                onMouseOver={handleProfileMenuOpen}
-                style={{ cursor: "pointer" }}
-              >
-                <Avatar
-                  alt=""
-                  src={currentUser?.avatar}
+              <>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                  onMouseOver={handleProfileMenuOpen}
                   style={{ cursor: "pointer" }}
-                />
-              </IconButton>
+                >
+                  <Avatar
+                    alt=""
+                    src={currentUser?.avatar}
+                    style={{ cursor: "pointer" }}
+                  />
+                </IconButton>
+              </>
             ) : (
               <IconButton
                 edge="end"
@@ -331,6 +466,11 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       {renderMenu}
+      <RenderNotifications
+        deletedNoti={deletedNoti}
+        notificationAnchorEl={notificationAnchorEl}
+        handleNotificationClose={handleNotificationClose}
+      />
       {currentUser && renderCartMenu}
     </div>
   );

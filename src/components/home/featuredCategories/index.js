@@ -1,9 +1,4 @@
 import { Box, Grid, Paper, Typography } from "@material-ui/core";
-import calendar from "assets/images/categories/calendar.png";
-import candle from "assets/images/categories/candle.png";
-import clock from "assets/images/categories/clock.png";
-import lamp from "assets/images/categories/lamp.png";
-import pinBoard from "assets/images/categories/pin-board.png";
 import React, { useEffect } from "react";
 import { useStyles } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +11,7 @@ export default function FeaturedCategories() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   console.log(categories);
 
@@ -33,7 +28,9 @@ export default function FeaturedCategories() {
             <Box display="flex" justifyContent="center">
               <img src={categories[0]?.image} alt="" height={490} />
             </Box>
-            <Typography className={classes.cateText}>{categories[0]?.name}</Typography>
+            <Typography className={classes.cateText}>
+              {categories[0]?.name}
+            </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -44,7 +41,9 @@ export default function FeaturedCategories() {
                   <Box display="flex" justifyContent="center">
                     <img src={categories[1]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[1]?.name}</Typography>
+                  <Typography className={classes.cateText}>
+                    {categories[1]?.name}
+                  </Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -54,7 +53,9 @@ export default function FeaturedCategories() {
                   <Box display="flex" justifyContent="center">
                     <img src={categories[2]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[2]?.name}</Typography>
+                  <Typography className={classes.cateText}>
+                    {categories[2]?.name}
+                  </Typography>
                 </Box>
               </Paper>
             </Grid>
@@ -66,7 +67,9 @@ export default function FeaturedCategories() {
                   <Box display="flex" justifyContent="center">
                     <img src={categories[3]?.image} alt="" height={200} />
                   </Box>
-                  <Typography className={classes.cateText}>{categories[3]?.name}</Typography>
+                  <Typography className={classes.cateText}>
+                    {categories[3]?.name}
+                  </Typography>
                 </Box>
               </Paper>
             </Grid>

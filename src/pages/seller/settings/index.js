@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ShopInfo from "components/seller/settings";
 import React from "react";

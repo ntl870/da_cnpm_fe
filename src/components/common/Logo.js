@@ -1,5 +1,4 @@
 import { Box, Divider, makeStyles, Typography } from "@material-ui/core";
-import logo from "assets/icons/logo.png";
 import React from "react";
 import { Link } from "react-router-dom";
 

@@ -36,7 +36,9 @@ export default function PostImage(props) {
   const { image } = props;
   const history = useHistory();
   const [hoveredArea, setHoveredArea] = useState("");
+  //eslint-disable-next-line
   const [msg, setMsg] = useState("");
+  //eslint-disable-next-line
   const [moveMsg, setMoveMsg] = useState("");
 
   const [map, setMap] = useState({
