@@ -9,6 +9,12 @@ const notifcationApi = {
     const url = "/notifications";
     return axiosClient.delete(`${url}/${id}`);
   },
+  updateNotificationStatus: (id) => {
+    const url = "/notifications";
+    return axiosClient.patch(url, {
+      notificationIds: [id],
+    });
+  },
 };
 
 export default notifcationApi;

@@ -17,7 +17,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Logo from "components/common/Logo";
 import SearchInput from "components/common/SearchInput";
 import Images from "constants/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
@@ -32,6 +32,7 @@ import { getToken } from "utils/helpers";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { notificationSelector } from "../../../redux/selectors";
 import { getNotifications, deleteNotification } from "redux/notificationRedux";
+import notifcationApi from "api/notificationApi";
 
 const RenderNotifications = ({
   deletedNoti,
@@ -41,7 +42,8 @@ const RenderNotifications = ({
   const { notifications, isLoading } = useSelector(notificationSelector);
   const dispatch = useDispatch();
   const [deletingId, setDeletingId] = useState("");
-  console.log(notifications);
+  const history = useHistory();
+
   const deleteNoti = async (id) => {
     dispatch(deleteNotification({ id, deletedNoti }));
   };
@@ -96,7 +98,13 @@ const RenderNotifications = ({
                 }}
                 key={item?.id}
               >
-                <MenuItem style={{ minWidth: 300, paddingLeft: "0.5rem" }}>
+                <MenuItem
+                  style={{ minWidth: 300, paddingLeft: "0.5rem" }}
+                  onClick={() => {
+                    notifcationApi.updateNotificationStatus(item.id);
+                    history.push(`/orders/${item.orderId}`);
+                  }}
+                >
                   <div
                     style={{
                       width: "0.5rem",
@@ -159,6 +167,11 @@ const RenderNotifications = ({
   );
 };
 
+const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  auth: { token: getToken() },
+  transports: ["websocket"],
+});
+
 export default function Header() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(userSelector);
@@ -174,6 +187,7 @@ export default function Header() {
   const [cardAnchorEl, setCardAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
   const [deletedNoti, setDeletedNoti] = useState("");
+  const [readNoti, setReadNoti] = useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isCardMenuOpen = Boolean(cardAnchorEl);
 
@@ -210,23 +224,17 @@ export default function Header() {
     history.push("/login");
   };
 
-  const socket = useMemo(
-    () =>
-      io(process.env.REACT_APP_SOCKET_URL, {
-        auth: { token: getToken() },
-        transports: ["websocket"],
-      }),
-    []
-  );
-
   useEffect(() => {
     socket.on("notification", (data) => {
-      console.log("socket", data);
+      console.log(data);
       if (data?.status === "delete") {
         setDeletedNoti(data?.payload?.notificationId);
       }
     });
-  }, [socket]);
+    socket.on("orderStatusChanging", (data) => {
+      console.log(data);
+    });
+  }, []);
 
   // console.log(socket);
   const menuId = "primary-search-account-menu";
