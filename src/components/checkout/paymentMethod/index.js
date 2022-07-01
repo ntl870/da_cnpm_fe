@@ -203,7 +203,7 @@ export default function PaymentMethod() {
                   clientId: process.env.REACT_APP_PRODUCTION_CLIENT_ID,
                 }}
                 onError={(err) => {
-                  console.log(err);
+                  toast.error(err.message);
                 }}
               />
             </Box>

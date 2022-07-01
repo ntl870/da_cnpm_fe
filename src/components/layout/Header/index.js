@@ -40,6 +40,7 @@ const RenderNotifications = ({
 }) => {
   const { notifications, isLoading } = useSelector(notificationSelector);
   const dispatch = useDispatch();
+  const [deletingId, setDeletingId] = useState("");
 
   const deleteNoti = async (id) => {
     dispatch(deleteNotification({ id, deletedNoti }));
@@ -79,8 +80,7 @@ const RenderNotifications = ({
               <CircularProgress size={24} />
             </div>
           );
-
-        return notifications?.map((item) => (
+        return notifications.map((item) => (
           <div
             style={{
               display: "flex",
@@ -135,7 +135,10 @@ const RenderNotifications = ({
             </MenuItem>
             <Box
               style={{ marginRight: "0.5rem" }}
-              onClick={() => deleteNoti(item?.id)}
+              onClick={() => {
+                setDeletingId(item?.id);
+                deleteNoti(item?.id);
+              }}
             >
               <IconButton>
                 <CancelIcon htmlColor="red" />
