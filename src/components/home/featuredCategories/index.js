@@ -13,8 +13,6 @@ export default function FeaturedCategories() {
     dispatch(getCategories());
   }, [dispatch]);
 
-  console.log(categories);
-
   return (
     <section>
       <Box mb={4}>

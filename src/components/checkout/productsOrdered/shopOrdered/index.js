@@ -115,7 +115,6 @@ export default function ShopOrdered(props) {
           <Table className={classes.table} aria-label="simple table">
             <TableBody>
               {orderItems?.map((row, index) => {
-                console.log('row',row)
                 return (
                   <TableRow key={index}>
                     <TableCell

@@ -115,7 +115,6 @@ export default function SearchBox() {
                 key={"0"}
                 value={""}
                 onClick={() => {
-                  console.log("here");
                   dispatch(storeSortNOrder({ sort: "", order: "" }));
                 }}
               >
@@ -125,7 +124,6 @@ export default function SearchBox() {
                 key={"1"}
                 value={"1"}
                 onClick={() => {
-                  console.log("here");
                   dispatch(storeSortNOrder({ sort: "minPrice", order: "asc" }));
                 }}
               >
@@ -135,7 +133,6 @@ export default function SearchBox() {
                 key={"2"}
                 value={"2"}
                 onClick={() => {
-                  console.log("here");
                   dispatch(
                     storeSortNOrder({ sort: "minPrice", order: "desc" })
                   );

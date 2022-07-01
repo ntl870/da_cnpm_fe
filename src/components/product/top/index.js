@@ -98,7 +98,6 @@ export default function Top(props) {
     const productVersionId = product?.productVersions?.find(
       (item) => item.color === color && item.size === value
     )?.id;
-    console.log(productVersionId);
     if (!getToken()) history.push("/login");
     else if (value)
       dispatch(addCartItem({ quantity, productVersionId: value })).then(

@@ -30,7 +30,7 @@ export const signUp = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
-      toast.error("ERROR");
+      toast.error(error.message);
       if (!error.response) {
         throw error;
       }
@@ -48,7 +48,7 @@ export const verifyEmail = createAsyncThunk(
       return response;
     } catch (error) {
       console.log(error);
-      toast.error("ERROR");
+      toast.error(error.message);
       if (!error.response) {
         throw error;
       }

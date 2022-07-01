@@ -17,7 +17,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Logo from "components/common/Logo";
 import SearchInput from "components/common/SearchInput";
 import Images from "constants/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
@@ -41,7 +41,7 @@ const RenderNotifications = ({
   const { notifications, isLoading } = useSelector(notificationSelector);
   const dispatch = useDispatch();
   const [deletingId, setDeletingId] = useState("");
-
+  console.log(notifications);
   const deleteNoti = async (id) => {
     dispatch(deleteNotification({ id, deletedNoti }));
   };
@@ -80,72 +80,80 @@ const RenderNotifications = ({
               <CircularProgress size={24} />
             </div>
           );
-        return notifications.map((item) => (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-            key={item?.id}
-          >
-            <MenuItem style={{ minWidth: 300, paddingLeft: "0.5rem" }}>
-              {item?.isRead && (
-                <div
-                  style={{
-                    width: "0.5rem",
-                    height: "0.5rem",
-                    borderRadius: "50%",
-                    backgroundColor: "blue",
-                    marginRight: "0.5rem",
-                  }}
-                ></div>
-              )}
-
-              <Box
-                display={"flex"}
-                justifyContent="space-between"
-                alignItems="center"
-                style={{ minWidth: 300 }}
-              >
-                <Box display={"flex"} alignItems="center">
-                  <img
-                    width={50}
-                    height={50}
-                    src={item?.order.orderItems[0].productVersion.image}
-                    alt="product"
-                  />
-                  <Box>
-                    <Typography
-                      style={{
-                        marginLeft: 8,
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 2,
-                        maxWidth: 270,
-                        paddingRight: 16,
-                      }}
-                    >
-                      {item?.message}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </MenuItem>
-            <Box
-              style={{ marginRight: "0.5rem" }}
-              onClick={() => {
-                setDeletingId(item?.id);
-                deleteNoti(item?.id);
-              }}
-            >
-              <IconButton>
-                <CancelIcon htmlColor="red" />
-              </IconButton>
+        return (
+          <div>
+            <Box p={2}>
+              <Typography style={{ color: "#7d879c" }}>
+                Notifications
+              </Typography>
             </Box>
+            {notifications.map((item) => (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+                key={item?.id}
+              >
+                <MenuItem style={{ minWidth: 300, paddingLeft: "0.5rem" }}>
+                  <div
+                    style={{
+                      width: "0.5rem",
+                      height: "0.5rem",
+                      borderRadius: "50%",
+                      backgroundColor: "blue",
+                      marginRight: "0.5rem",
+                      visibility: !item.isRead ? "visible" : "hidden",
+                    }}
+                  ></div>
+
+                  <Box
+                    display={"flex"}
+                    justifyContent="space-between"
+                    alignItems="center"
+                    style={{ minWidth: 300 }}
+                  >
+                    <Box display={"flex"} alignItems="center">
+                      <img
+                        width={50}
+                        height={50}
+                        src={item?.order.orderItems[0].productVersion.image}
+                        alt="product"
+                      />
+                      <Box>
+                        <Typography
+                          style={{
+                            marginLeft: 8,
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 2,
+                            maxWidth: 270,
+                            paddingRight: 16,
+                          }}
+                        >
+                          {item?.message}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </MenuItem>
+                <Box
+                  style={{ marginRight: "0.5rem" }}
+                  onClick={() => {
+                    setDeletingId(item?.id);
+                    deleteNoti(item?.id);
+                  }}
+                >
+                  <IconButton>
+                    <CancelIcon htmlColor="red" />
+                  </IconButton>
+                </Box>
+              </div>
+            ))}
           </div>
-        ));
+        );
       })()}
     </Menu>
   );
@@ -199,15 +207,21 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logOut());
+    history.push("/login");
   };
 
-  const socket = io(process.env.REACT_APP_SOCKET_URL, {
-    auth: { token: getToken() },
-    transports: ["websocket"],
-  });
+  const socket = useMemo(
+    () =>
+      io(process.env.REACT_APP_SOCKET_URL, {
+        auth: { token: getToken() },
+        transports: ["websocket"],
+      }),
+    []
+  );
 
   useEffect(() => {
     socket.on("notification", (data) => {
+      console.log("socket", data);
       if (data?.status === "delete") {
         setDeletedNoti(data?.payload?.notificationId);
       }

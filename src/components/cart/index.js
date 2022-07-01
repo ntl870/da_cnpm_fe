@@ -304,7 +304,6 @@ export default function EnhancedTable(props) {
 
   const handleClickDelete = (event, name) => {
     const selectedIndex = selected.indexOf(name);
-    console.log(selectedIndex);
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -318,7 +317,6 @@ export default function EnhancedTable(props) {
         selected.slice(selectedIndex + 1)
       );
     }
-    console.log(newSelected);
     setSelected(newSelected);
     const tmp = [];
     data?.map(

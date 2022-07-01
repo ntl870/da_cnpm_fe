@@ -48,19 +48,7 @@ export default function Products({ order }) {
           </Box>
           <Box>
             {/* status: pending - processing */}
-            {order?.status === "shipped" ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  history.push(`/orders/${order.id}`);
-                  dispatch(confirmOrder(order.id));
-                }}
-              >
-                Confirm
-              </Button>
-            ) : (
-              order?.status !== "shipped" &&
+            {order?.status !== "shipped" &&
               order?.status !== "delivered" &&
               order?.status !== "canceled" && (
                 <Button
@@ -73,9 +61,7 @@ export default function Products({ order }) {
                 >
                   Cancel
                 </Button>
-              )
-            )}
-
+              )}
             {/* status: shipped */}
             {order?.status === "canceled" && (
               <Button variant="contained" color="primary">
