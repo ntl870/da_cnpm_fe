@@ -11,9 +11,10 @@ export const getNotifications = createAsyncThunk(
 
 export const deleteNotification = createAsyncThunk(
   "notification/deleteNotification",
-  async ({ id, deletedNoti }) => {
+  async ({ id, socketId }) => {
+    if (!!socketId) return socketId;
     await notifcationApi.deleteNotifications(id);
-    return deletedNoti;
+    return id;
   }
 );
 
@@ -23,8 +24,17 @@ const notificationsSlice = createSlice({
     isLoading: false,
     notifications: [],
     error: "",
+    totalUnreadNotifications: 0,
   },
-  reducers: {},
+  reducers: {
+    addNotification: (state, action) => {
+      state.notifications.push(action.payload);
+      // state = {
+      //   ...state,
+      //   notifications: [...state.notifications, action.payload],
+      // };
+    },
+  },
   extraReducers: {
     [getNotifications.pending]: (state) => {
       state.isLoading = true;
@@ -37,6 +47,7 @@ const notificationsSlice = createSlice({
       state.isLoading = false;
       state.error = "";
       state.notifications = action.payload.notifications;
+      state.totalUnreadNotifications = action.payload.totalUnreadNotifications;
     },
 
     [deleteNotification.rejected]: (state, action) => {
@@ -45,13 +56,14 @@ const notificationsSlice = createSlice({
     },
     [deleteNotification.fulfilled]: (state, action) => {
       const cloneState = { ...state };
+      console.log("payload", action.payload);
       state.isLoading = false;
       state.error = "";
       state.notifications = cloneState.notifications.filter(
-        (item) => String(item?.id) !== action.payload
+        (item) => String(item?.id) !== String(action.payload)
       );
     },
   },
 });
-
+export const { addNotification } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

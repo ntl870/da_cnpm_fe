@@ -219,7 +219,7 @@ export default function Products({ order }) {
                     <MenuItem key={"3"} value={"shipped"}>
                       Shipped
                     </MenuItem>
-                    <MenuItem key={"4"} value={"delivered"} disabled>
+                    <MenuItem key={"4"} value={"delivered"}>
                       Delivered
                     </MenuItem>
                     <MenuItem key={"5"} value={"canceled"} disabled>

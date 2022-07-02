@@ -31,7 +31,11 @@ import { io } from "socket.io-client";
 import { getToken } from "utils/helpers";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { notificationSelector } from "../../../redux/selectors";
-import { getNotifications, deleteNotification } from "redux/notificationRedux";
+import {
+  getNotifications,
+  deleteNotification,
+  addNotification,
+} from "redux/notificationRedux";
 import notifcationApi from "api/notificationApi";
 
 const RenderNotifications = ({
@@ -41,11 +45,10 @@ const RenderNotifications = ({
 }) => {
   const { notifications, isLoading } = useSelector(notificationSelector);
   const dispatch = useDispatch();
-  const [deletingId, setDeletingId] = useState("");
   const history = useHistory();
 
   const deleteNoti = async (id) => {
-    dispatch(deleteNotification({ id, deletedNoti }));
+    dispatch(deleteNotification({ id: id, socketId: "" }));
   };
 
   useEffect(() => {
@@ -89,7 +92,7 @@ const RenderNotifications = ({
                 Notifications
               </Typography>
             </Box>
-            {notifications.map((item) => (
+            {notifications?.map((item) => (
               <div
                 style={{
                   display: "flex",
@@ -150,7 +153,6 @@ const RenderNotifications = ({
                 <Box
                   style={{ marginRight: "0.5rem" }}
                   onClick={() => {
-                    setDeletingId(item?.id);
                     deleteNoti(item?.id);
                   }}
                 >
@@ -228,13 +230,17 @@ export default function Header() {
     socket.on("notification", (data) => {
       console.log(data);
       if (data?.status === "delete") {
-        setDeletedNoti(data?.payload?.notificationId);
+        dispatch(
+          deleteNotification({ id: "", socketId: data?.payload?.socketId })
+        );
       }
     });
     socket.on("orderStatusChanging", (data) => {
-      console.log(data);
+      dispatch(addNotification(data));
     });
   }, []);
+
+  const { totalUnreadNotifications } = useSelector(notificationSelector);
 
   // console.log(socket);
   const menuId = "primary-search-account-menu";
@@ -435,7 +441,7 @@ export default function Header() {
           <div className={classes.sectionDesktop}>
             <IconButton color="inherit">
               <Badge
-                badgeContent={0}
+                badgeContent={totalUnreadNotifications}
                 color="secondary"
                 onMouseOver={handleNotificationOpen}
               >
