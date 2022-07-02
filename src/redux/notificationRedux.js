@@ -28,11 +28,12 @@ const notificationsSlice = createSlice({
   },
   reducers: {
     addNotification: (state, action) => {
-      state.notifications.push(action.payload);
-      // state = {
-      //   ...state,
-      //   notifications: [...state.notifications, action.payload],
-      // };
+      // if(state.notification.findIndex(item =>) )
+      state.notifications.unshift({
+        ...action.payload.notification,
+        order: action.payload.order,
+      });
+      state.totalUnreadNotifications += 1;
     },
   },
   extraReducers: {
@@ -56,7 +57,6 @@ const notificationsSlice = createSlice({
     },
     [deleteNotification.fulfilled]: (state, action) => {
       const cloneState = { ...state };
-      console.log("payload", action.payload);
       state.isLoading = false;
       state.error = "";
       state.notifications = cloneState.notifications.filter(

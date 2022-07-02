@@ -55,6 +55,8 @@ const RenderNotifications = ({
     dispatch(getNotifications());
   }, [dispatch]);
 
+  console.log(notifications);
+
   return (
     <Menu
       anchorEl={notificationAnchorEl}
@@ -68,6 +70,7 @@ const RenderNotifications = ({
         marginRight: 40,
         cursor: "pointer",
         minWidth: 300,
+        maxHeight: "30rem",
       }}
       MenuListProps={{ onMouseLeave: handleNotificationClose }}
       disableScrollLock={true}
@@ -105,6 +108,7 @@ const RenderNotifications = ({
                   style={{ minWidth: 300, paddingLeft: "0.5rem" }}
                   onClick={() => {
                     notifcationApi.updateNotificationStatus(item.id);
+                    dispatch(getNotifications());
                     history.push(`/orders/${item.orderId}`);
                   }}
                 >
@@ -226,9 +230,22 @@ export default function Header() {
     history.push("/login");
   };
 
+  function containsObject(obj, list) {
+    let x;
+    for (x in list) {
+      if (list.hasOwnProperty(x) && list[x] === obj) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  const { notifications, totalUnreadNotifications } =
+    useSelector(notificationSelector);
+
   useEffect(() => {
     socket.on("notification", (data) => {
-      console.log(data);
       if (data?.status === "delete") {
         dispatch(
           deleteNotification({ id: "", socketId: data?.payload?.socketId })
@@ -236,11 +253,19 @@ export default function Header() {
       }
     });
     socket.on("orderStatusChanging", (data) => {
-      dispatch(addNotification(data));
+      console.log(data);
+      if (
+        !containsObject(
+          {
+            ...data.notification,
+            order: data.order,
+          },
+          notifications
+        )
+      )
+        dispatch(addNotification(data));
     });
   }, []);
-
-  const { totalUnreadNotifications } = useSelector(notificationSelector);
 
   // console.log(socket);
   const menuId = "primary-search-account-menu";

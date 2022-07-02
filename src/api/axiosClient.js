@@ -1,6 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 import { getToken } from "utils/helpers";
+import { toast } from "react-toastify";
 
 // Set up default config for http requests here
 const axiosClient = axios.create({
