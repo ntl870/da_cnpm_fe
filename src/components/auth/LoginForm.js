@@ -127,7 +127,7 @@ const LoginForm = (props) => {
               flexDirection="column"
             >
               <Typography variant="h5" className={classes.welcome}>
-                Welcome To E-Decor
+                Welcome To E-Clothes
               </Typography>
               <Typography>Log in with email & password</Typography>
             </Box>
