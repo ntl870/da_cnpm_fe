@@ -1,6 +1,5 @@
 import { Box, Paper, Typography } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PaymentOutlinedIcon from "@material-ui/icons/PaymentOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
@@ -33,14 +32,6 @@ export default function Sidebar() {
             >
               <FavoriteBorderIcon className={classes.icon} />
               Wishlist
-            </NavLink>
-            <NavLink
-              className={classes.navLink}
-              to="/support"
-              activeClassName={classes.active}
-            >
-              <HelpOutlineOutlinedIcon className={classes.icon} />
-              Support
             </NavLink>
           </Box>
         </Box>
