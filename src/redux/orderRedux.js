@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await orderApi.create(data);
-      console.log(response.result)
+      console.log(response.result);
       toast.success("SUCCESS");
       if (response.result) {
         return response.result;
@@ -49,7 +49,12 @@ export const updateOrderStatus = createAsyncThunk(
   "order/updateOrderStatus",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await orderApi.updateOrderStatus(data.id, data.status);
+      let response;
+      if (data.status.status === "canceled") {
+        response = await orderApi.cancelOrder(data.id);
+      } else {
+        response = await orderApi.updateOrderStatus(data.id, data.status);
+      }
       if (response.result) toast.success("SUCCESS");
       return response.result;
     } catch (err) {
