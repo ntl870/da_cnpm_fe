@@ -29,11 +29,17 @@ const notificationsSlice = createSlice({
   reducers: {
     addNotification: (state, action) => {
       // if(state.notification.findIndex(item =>) )
-      state.notifications.unshift({
-        ...action.payload.notification,
-        order: action.payload.order,
-      });
-      state.totalUnreadNotifications += 1;
+      if (
+        state.notifications.findIndex(
+          (item) => item.id === action.payload.notification.id
+        ) === -1
+      ) {
+        state.notifications.unshift({
+          ...action.payload.notification,
+          order: action.payload.order,
+        });
+        state.totalUnreadNotifications += 1;
+      }
     },
   },
   extraReducers: {

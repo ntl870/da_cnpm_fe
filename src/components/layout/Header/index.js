@@ -39,7 +39,6 @@ import {
 import notifcationApi from "api/notificationApi";
 
 const RenderNotifications = ({
-  deletedNoti,
   notificationAnchorEl,
   handleNotificationClose,
 }) => {
@@ -54,8 +53,6 @@ const RenderNotifications = ({
   useEffect(() => {
     dispatch(getNotifications());
   }, [dispatch]);
-
-  console.log(notifications);
 
   return (
     <Menu
@@ -175,6 +172,8 @@ const RenderNotifications = ({
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   auth: { token: getToken() },
+  forceNew: false,
+  secure: true,
   transports: ["websocket"],
 });
 
@@ -230,19 +229,7 @@ export default function Header() {
     history.push("/login");
   };
 
-  function containsObject(obj, list) {
-    let x;
-    for (x in list) {
-      if (list.hasOwnProperty(x) && list[x] === obj) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  const { notifications, totalUnreadNotifications } =
-    useSelector(notificationSelector);
+  const { totalUnreadNotifications } = useSelector(notificationSelector);
 
   useEffect(() => {
     socket.on("notification", (data) => {
@@ -252,21 +239,15 @@ export default function Header() {
         );
       }
     });
-    socket.on("orderStatusChanging", (data) => {
-      console.log(data);
-      if (
-        !containsObject(
-          {
-            ...data.notification,
-            order: data.order,
-          },
-          notifications
-        )
-      )
-        dispatch(addNotification(data));
-    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    socket.on("orderStatusChanging", (data) => {
+      dispatch(addNotification(data));
+    });
+  }, [dispatch]);
 
   // console.log(socket);
   const menuId = "primary-search-account-menu";
