@@ -4,6 +4,7 @@ import DashboardOutlinedIcon from "@material-ui/icons/DashboardOutlined";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "./styles";
@@ -46,6 +47,14 @@ export default function Sidebar() {
           >
             <ShoppingCartOutlinedIcon className={classes.icon} />
             Orders
+          </NavLink>
+          <NavLink
+            className={classes.navLink}
+            to="/shop/promotions"
+            activeClassName={classes.active}
+          >
+            <LocalOfferOutlinedIcon className={classes.icon} />
+            Promotions
           </NavLink>
           <NavLink
             className={classes.navLink}

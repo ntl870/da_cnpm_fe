@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { cancelOrder, confirmOrder } from "redux/orderRedux";
+import { cancelOrder } from "redux/orderRedux";
 import { isEmpty } from "underscore";
 import Product from "./product";
 import { useStyles } from "./styles";

@@ -95,9 +95,9 @@ export default function Top(props) {
 
   const addToCart = (e) => {
     // const productVersionId = product?.productVersions?.find(item => item.color = color && item.size === value).id;
-    const productVersionId = product?.productVersions?.find(
-      (item) => item.color === color && item.size === value
-    )?.id;
+    // const productVersionId = product?.productVersions?.find(
+    //   (item) => item.color === color && item.size === value
+    // )?.id;
     if (!getToken()) history.push("/login");
     else if (value)
       dispatch(addCartItem({ quantity, productVersionId: value })).then(

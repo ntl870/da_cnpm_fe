@@ -192,8 +192,8 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [cardAnchorEl, setCardAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [deletedNoti, setDeletedNoti] = useState("");
-  const [readNoti, setReadNoti] = useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isCardMenuOpen = Boolean(cardAnchorEl);
 
@@ -265,6 +265,7 @@ export default function Header() {
       )
         dispatch(addNotification(data));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // console.log(socket);
