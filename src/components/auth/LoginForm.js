@@ -195,34 +195,7 @@ const LoginForm = (props) => {
             >
               Login
             </Button>
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <Divider className={classes.divider} />
-              <Box>
-                <Typography component="span" className={classes.dividerText}>
-                  or
-                </Typography>
-              </Box>
-              <Divider className={classes.divider} />
-            </Box>
 
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              fullWidth
-              className={classes.fbBtn}
-            >
-              Login with Facebook
-            </Button>
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              fullWidth
-              className={classes.ggBtn}
-            >
-              Login with Google
-            </Button>
             <Box mt={2}>
               Don't have account?
               <Link to="/sign-up" className={classes.link}>
