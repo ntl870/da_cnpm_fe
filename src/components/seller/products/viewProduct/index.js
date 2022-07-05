@@ -184,6 +184,8 @@ export default function ViewProductForm(props) {
         image: item.image,
         price: item.price,
         quantity: item.quantity,
+        size: item.size,
+        color: item.color,
       })),
     };
     !isView &&

@@ -175,7 +175,7 @@ export default function NewProductForm() {
     categoryName &&
       setCategoryId(getCategoryId(categoryName, storeCategory.categories));
   }, [categoryName, storeCategory.categories]);
-
+  console.log("store", storeProduct);
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -193,7 +193,7 @@ export default function NewProductForm() {
         price: Number(item.price),
         quantity: Number(item.quantity),
         size: item.size,
-        color: item.color
+        color: item.color,
       })),
     };
     dispatch(createProduct(data)).then((data) => {
